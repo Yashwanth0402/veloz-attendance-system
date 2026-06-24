@@ -11,7 +11,7 @@ from flask import (
     jsonify,
     send_file
 )
-from datetime import datetime, date
+from datetime import datetime,timezone, date
 from flask import session, jsonify
 from reportlab.platypus import (
     SimpleDocTemplate,
@@ -179,7 +179,7 @@ def clock_in():
     )
 
     filename = secure_filename(
-        f"clockin_{datetime.now().timestamp()}.jpg"
+        f"clockin_{datetime.now(timezone.utc).timestamp()}.jpg"
     )
 
     filepath = os.path.join(
@@ -195,7 +195,7 @@ def clock_in():
     attendance = Attendance(
         employee_id=employee_id,
         date=date.today(),
-        clock_in_time=datetime.now(),
+        clock_in_time=datetime.now(timezone.utc),
         clock_in_photo=f"uploads/clockin/{filename}",
         status="Working"
     )
@@ -217,7 +217,7 @@ def start_break():
     Attendance.clock_in_time.desc()
     ).first()
 
-    attendance.break_start = datetime.now()
+    attendance.break_start = datetime.now(timezone.utc)
     attendance.status = "On Break"
 
     db.session.commit()
@@ -241,7 +241,7 @@ def end_break():
     Attendance.clock_in_time.desc()
     ).first()
 
-    attendance.break_end = datetime.now()
+    attendance.break_end = datetime.now(timezone.utc)
     attendance.status = "Working"
 
     db.session.commit()
@@ -268,7 +268,7 @@ def clock_out():
        Attendance.clock_in_time.desc()
     ).first()
 
-    attendance.clock_out_time = datetime.now()
+    attendance.clock_out_time = datetime.now(timezone.utc)
     attendance.status = "Completed"
 
     if not attendance:
@@ -283,7 +283,7 @@ def clock_out():
     )
 
     filename = secure_filename(
-        f"clockout_{datetime.now().timestamp()}.jpg"
+        f"clockout_{datetime.now(timezone.utc).timestamp()}.jpg"
     )
 
     filepath = os.path.join(
@@ -300,7 +300,7 @@ def clock_out():
         f"uploads/clockout/{filename}"
     )
 
-    attendance.clock_out_time = datetime.now()
+    attendance.clock_out_time = datetime.now(timezone.utc)
 
     diff = (
         attendance.clock_out_time -
