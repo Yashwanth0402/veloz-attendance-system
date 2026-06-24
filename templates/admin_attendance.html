@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Attendance Records</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<div class="topbar">
+
+    <h1>Attendance Records</h1>
+
+    <a href="/admin/dashboard"
+       class="nav-btn">
+        Back
+    </a>
+
+</div>
+
+<!-- FILTER SECTION -->
+<div class="card">
+
+<form method="POST"
+      action="/admin/attendance/filter">
+
+    <select name="employee_id">
+
+        <option value="all">
+            All Employees
+        </option>
+
+        {% for emp in employees %}
+
+        <option value="{{ emp.id }}">
+            {{ emp.name }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <input type="date" name="date">
+
+    <button type="submit">
+        Filter
+    </button>
+
+</form>
+
+</div>
+
+<br>
+
+<!-- TABLE -->
+<div class="card">
+
+<table class="table">
+
+<tr>
+    <th>Employee</th>
+    <th>Date</th>
+    <th>Clock In</th>
+    <th>Clock In Photo</th>
+    <th>Break</th>
+    <th>Clock Out</th>
+    <th>Clock Out Photo</th>
+    <th>Hours</th>
+</tr>
+
+{% for a in attendances %}
+
+<tr>
+
+    <td>{{ a.employee.name }}</td>
+
+    <td>{{ a.date }}</td>
+
+    <td>{{ a.clock_in_time }}</td>
+
+    <td>
+        {% if a.clock_in_photo %}
+        <img src="/{{ a.clock_in_photo }}"
+             width="60">
+        {% endif %}
+    </td>
+
+    <td>
+        {% if a.break_start %}
+            {{ a.break_start }} - {{ a.break_end }}
+        {% else %}
+            --
+        {% endif %}
+    </td>
+
+    <td>{{ a.clock_out_time }}</td>
+
+    <td>
+        {% if a.clock_out_photo %}
+        <a href="/{{ a.clock_in_photo }}"
+           target="_blank">
+
+        <img src="/{{ a.clock_in_photo }}"
+           width="60">
+
+        </a>
+        {% endif %}
+    </td>
+
+    <td>
+        {{ a.total_hours or 0 }}
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</div>
+
+</body>
+</html>

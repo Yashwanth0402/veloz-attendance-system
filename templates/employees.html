@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Employees</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static',
+      filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<div class="topbar">
+
+    <h1>Employee Management</h1>
+
+    <a href="/admin/dashboard"
+       class="nav-btn">
+        Dashboard
+    </a>
+
+</div>
+
+<div class="card">
+
+<h2>Add Employee</h2>
+
+<form method="POST"
+      action="/admin/add-employee">
+
+    <input
+        type="text"
+        name="name"
+        placeholder="Employee Name"
+        required>
+
+    <input
+        type="text"
+        name="pin"
+        maxlength="4"
+        placeholder="4 Digit PIN"
+        required>
+
+    <button type="submit">
+        Add Employee
+    </button>
+
+</form>
+
+</div>
+
+<br>
+
+<div class="card">
+
+<h2>Employees</h2>
+
+<table class="table">
+
+<tr>
+    <th>Name</th>
+    <th>Status</th>
+    <th>Reset PIN</th>
+    <th>Action</th>
+</tr>
+
+{% for employee in employees %}
+
+<tr>
+
+<td>
+    {{ employee.name }}
+</td>
+
+<td>
+
+{% if employee.active %}
+    Active
+{% else %}
+    Disabled
+{% endif %}
+
+</td>
+
+<td>
+
+<form
+action="/admin/reset-pin/{{ employee.id }}"
+method="POST">
+
+<input
+type="text"
+name="pin"
+maxlength="4"
+placeholder="New PIN"
+required>
+
+<button type="submit">
+
+Reset
+
+</button>
+
+</form>
+
+</td>
+
+<td>
+
+<a
+href="/admin/toggle-employee/{{ employee.id }}"
+class="small-btn">
+
+{% if employee.active %}
+Disable
+{% else %}
+Enable
+{% endif %}
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</div>
+
+</body>
+</html>
+

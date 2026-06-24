@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title if title else "Veloz System" }}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<!-- HEADER (GLOBAL) -->
+<div class="top-header">
+    <img src="{{ url_for('static', filename='images/veloz-logo.png') }}"
+         alt="Veloz Logo"
+         class="logo">
+
+    <h2>Veloz Attendance System</h2>
+</div>
+
+<!-- PAGE CONTENT -->
+<div class="page-container">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

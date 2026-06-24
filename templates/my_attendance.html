@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>My Attendance</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static',
+      filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<h1>My Attendance</h1>
+
+<table class="table">
+
+<tr>
+    <th>Date</th>
+    <th>Clock In</th>
+    <th>Clock Out</th>
+    <th>Hours</th>
+</tr>
+
+{% for r in records %}
+
+<tr>
+
+<td>{{ r.date }}</td>
+
+<td>{{ r.clock_in_time }}</td>
+
+<td>{{ r.clock_out_time }}</td>
+
+<td>{{ r.total_hours }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>

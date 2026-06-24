@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static',
+      filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <div class="topbar">
+
+        <h1>Admin Dashboard</h1>
+
+        <div>
+
+            <a href="/admin/employees"
+               class="nav-btn">
+                Employees
+            </a>
+
+            <a href="/logout"
+               class="logout-btn">
+                Logout
+            </a>
+
+            <a href="/admin/attendance"
+               class="nav-btn">
+               Attendance Records
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h2>
+                {{ total_employees }}
+            </h2>
+
+            <p>Total Employees</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>
+                {{ total_attendance }}
+            </h2>
+
+            <p>Total Attendance Records</p>
+
+        </div>
+
+        <div class="card">
+          <h2>{{ working }}</h2>
+          <p>Currently Working</p>
+        </div>
+
+        <div class="card">
+          <h2>{{ on_break }}</h2>
+          <p>On Break</p>
+        </div>
+
+        <div class="card">
+          <h2>{{ completed }}</h2>
+          <p>Clocked Out</p>
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="card">
+
+        <h2>Recent Employees</h2>
+
+        <table class="table">
+
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+            </tr>
+
+            {% for emp in employees %}
+
+            <tr>
+
+                <td>{{ emp.name }}</td>
+
+                <td>
+
+                    {% if emp.active %}
+                        Active
+                    {% else %}
+                        Disabled
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+

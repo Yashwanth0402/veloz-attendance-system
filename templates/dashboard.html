@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <div class="topbar">
+
+        <h2>
+            Welcome, {{ employee.name }}
+        </h2>
+        
+        <a href="/my-attendance"
+            class="nav-btn">
+               Attendance History
+        </a>
+
+        <a href="{{ url_for('logout') }}"
+           class="logout-btn">
+            Logout
+        </a>
+
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Clock In</h3>
+
+            <p>Start your shift</p>
+
+            <button onclick="openCamera('clockin')">Clock In</button>
+        </div>
+        <div id="cameraModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:9999;">
+
+             <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;">
+
+                   <video id="video" autoplay playsinline style="width:320px; border-radius:10px;"></video>
+
+                   <br>
+
+                  <button onclick="capturePhoto()" style="padding:10px 20px;">
+                    Capture Photo
+                  </button>
+
+             <button onclick="closeCamera()" style="padding:10px 20px; margin-top:10px;">
+                        Cancel
+             </button>
+
+           <canvas id="canvas" style="display:none;"></canvas>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+            <h3>Break</h3>
+
+            <p>Manage break time</p>
+
+            <button onclick="startBreak()">Start Break</button>
+        </div>
+
+        <div class="card">
+            <h3>Resume</h3>
+
+            <p>End break</p>
+
+            <button onclick="endBreak()">End Break</button>
+        </div>
+
+        <div class="card">
+            <h3>Clock Out</h3>
+
+            <p>Finish shift</p>
+
+            
+<button onclick="clockOut()">Clock Out</button>
+            <input type="hidden" id="latitude">
+            <input type="hidden" id="longitude">
+        </div>
+
+    </div>
+
+ <div class="reminder-box">
+
+    <h3>Today's Status</h3>
+
+    <p id="reminder-message"></p>
+
+</div>
+
+</div>
+
+<script id="attendance-data" type="application/json">
+    {{ attendance | tojson | safe }}
+</script>
+
+<script src="{{ url_for('static', filename='js/camera.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>
+
