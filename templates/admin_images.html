@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Images</title>
+</head>
+
+<body>
+
+<h2>Clock In Images</h2>
+
+{% for img in clockin_images %}
+    <div>
+        <img src="{{ url_for('static', filename='uploads/clockin/' + img) }}"
+             width="200">
+        <p>{{ img }}</p>
+    </div>
+{% endfor %}
+
+<hr>
+
+<h2>Clock Out Images</h2>
+
+{% for img in clockout_images %}
+    <div>
+        <img src="{{ url_for('static', filename='uploads/clockout/' + img) }}"
+             width="200">
+        <p>{{ img }}</p>
+    </div>
+{% endfor %}
+
+</body>
+</html>

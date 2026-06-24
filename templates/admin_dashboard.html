@@ -21,7 +21,9 @@
         <h1>Admin Dashboard</h1>
 
         <div>
-
+            <a href="{{ url_for('view_images') }}" class="nav-btn">
+    View Attendance Images
+</a>
             <a href="/admin/employees"
                class="nav-btn">
                 Employees
@@ -42,6 +44,14 @@
     </div>
 
     <div class="cards">
+
+        <div class="card">
+        <h3>Attendance Images</h3>
+        <p>View clock-in & clock-out selfies</p>
+        <a href="{{ url_for('view_images') }}">
+            <button>Open Gallery</button>
+        </a>
+    </div>
 
         <div class="card">
 

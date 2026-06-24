@@ -526,6 +526,25 @@ def admin_dashboard():
         employees=employees
     )
 
+
+@app.route("/admin/images")
+def view_images():
+
+    if "admin_id" not in session:
+        return redirect(url_for("admin_login"))
+
+    import os
+
+    clockin_folder = os.listdir("static/uploads/clockin")
+    clockout_folder = os.listdir("static/uploads/clockout")
+
+    return render_template(
+        "admin_images.html",
+        clockin_images=clockin_folder,
+        clockout_images=clockout_folder
+    )
+
+
 @app.route("/admin/logout")
 def admin_logout():
 
