@@ -503,17 +503,9 @@ def admin_dashboard():
 
     total_attendance = Attendance.query.count()
     
-    working = Attendance.query.filter_by(
-        status="Working"
-    ).count()
-
-    on_break = Attendance.query.filter_by(
-        status="On Break"
-    ).count()
-
-    completed = Attendance.query.filter_by(
-        status="Completed"
-    ).count()
+    working = Attendance.query.filter(Attendance.status == "Working").count()
+    on_break = Attendance.query.filter(Attendance.status == "On Break").count()
+    completed = Attendance.query.filter(Attendance.status == "Completed").count()
 
     employees = Employee.query.all()
 
